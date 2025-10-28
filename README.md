@@ -1,1 +1,1 @@
-# -16kbmemorypagesizechecker
+# 16kbmemorypagesizechecker
