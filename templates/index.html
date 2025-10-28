@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>16KB Page Alignment Checker</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f6f8fa; text-align: center; padding-top: 100px; }
+    form { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); display: inline-block; }
+    input[type="file"] { margin: 15px 0; }
+    button { background-color: #000; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; }
+    button:hover { background-color: #333; }
+    pre { text-align: left; margin: 20px auto; width: 70%; background: #222; color: #0f0; padding: 10px; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <h2>APK 16KB Page Alignment Checker</h2>
+  <form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" name="apk" accept=".apk" required />
+    <br>
+    <button type="submit">Check APK</button>
+  </form>
+  <div id="result"></div>
+
+  <script>
+    const form = document.getElementById("uploadForm");
+    form.onsubmit = async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      document.getElementById("result").innerHTML = "<p>Checking...</p>";
+      const res = await fetch("/upload", { method: "POST", body: data });
+      const json = await res.json();
+      document.getElementById("result").innerHTML =
+        "<pre>" + JSON.stringify(json, null, 2) + "</pre>";
+    };
+  </script>
+</body>
+</html>
